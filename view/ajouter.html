@@ -3,12 +3,13 @@
 <head><meta charset="UTF-8"><title>Ajouter</title></head>
 <body>
   <h1>Ajouter un utilisateur</h1>
+  <link rel="stylesheet" href="style.css">
   <form id="form">
     <input type="text" name="nom" placeholder="Nom" required>
     <input type="email" name="email" placeholder="Email" required>
     <button type="submit">Ajouter</button>
   </form>
-
+  <a href="index.html">Return</a>
   <script>
     document.getElementById('form').addEventListener('submit', e => {
       e.preventDefault();
