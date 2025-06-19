@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>Ajouter</title></head>
+<body>
+  <h1>Ajouter un utilisateur</h1>
+  <form id="form">
+    <input type="text" name="nom" placeholder="Nom" required>
+    <input type="email" name="email" placeholder="Email" required>
+    <button type="submit">Ajouter</button>
+  </form>
+
+  <script>
+    document.getElementById('form').addEventListener('submit', e => {
+      e.preventDefault();
+      const data = {
+        nom: e.target.nom.value,
+        email: e.target.email.value
+      };
+      fetch('../api/user.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+      }).then(() => location.href = 'index.html');
+    });
+  </script>
+</body>
+</html>

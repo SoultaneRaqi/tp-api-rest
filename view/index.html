@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Liste des utilisateurs</title>
+</head>
+<body>
+  <h1>Utilisateurs</h1>
+  <a href="ajouter.html">Ajouter un utilisateur</a>
+  <table id="userTable" border="2"></table>
+
+  <script>
+    fetch('../api/user.php')
+      .then(res => res.json())
+      .then(users => {
+        let html = '<tr><th>ID</th><th>Nom</th><th>Email</th><th>Actions</th></tr>';
+        users.forEach(u => {
+          html += `<tr>
+            <td>${u.id}</td><td>${u.nom}</td><td>${u.email}</td>
+            <td>
+              <a href="modifier.html?id=${u.id}&nom=${u.nom}&email=${u.email}">Modifier</a>
+              <button onclick="supprimer(${u.id})">Supprimer</button>
+            </td>
+          </tr>`;
+        });
+        document.getElementById('userTable').innerHTML = html;
+      });
+
+    function supprimer(id) {
+      fetch('../api/user.php', {
+        method: 'DELETE',
+        body: `id=${id}`
+      }).then(() => location.reload());
+    }
+  </script>
+</body>
+</html>

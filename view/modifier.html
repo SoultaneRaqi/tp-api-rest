@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>Modifier</title></head>
+<body>
+  <h1>Modifier un utilisateur</h1>
+  <form id="form">
+    <input type="text" name="nom" required>
+    <input type="email" name="email" required>
+    <button type="submit">Modifier</button>
+  </form>
+
+  <script>
+    const params = new URLSearchParams(location.search);
+    const id = params.get('id');
+    const nom = params.get('nom');
+    const email = params.get('email');
+
+    document.querySelector('input[name=nom]').value = nom;
+    document.querySelector('input[name=email]').value = email;
+
+    document.getElementById('form').addEventListener('submit', e => {
+      e.preventDefault();
+      const data = {
+        id,
+        nom: e.target.nom.value,
+        email: e.target.email.value
+      };
+      fetch('../api/user.php', {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+      }).then(() => location.href = 'index.html');
+    });
+  </script>
+</body>
+</html>
